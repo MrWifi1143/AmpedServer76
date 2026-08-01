@@ -1,0 +1,102 @@
+[
+    {
+        "DisplayName": "Accept Server76 / Fallout 76 EULA",
+        "Description": "Server76 will not start until the EULA is accepted (it passes --accept-eula for you). By enabling this you confirm you accept the Server76 and Fallout 76 terms. Running a private server is against Bethesda's EULA - you take full responsibility.",
+        "FieldName": "AcceptEULA",
+        "InputType": "checkbox",
+        "Category": "Server76:settings_input_component",
+        "Subcategory": "Server:dns:1",
+        "ParamFieldName": "accept-eula",
+        "IncludeInCommandLine": false,
+        "DefaultValue": "",
+        "EnumValues": {
+            "True": "--accept-eula",
+            "False": ""
+        }
+    },
+    {
+        "DisplayName": "Run As",
+        "Description": "Network reachability the server advertises (--run-as). Internet = publicly reachable, LAN = local network, Local = same machine only.",
+        "FieldName": "RunAs",
+        "InputType": "enum",
+        "Category": "Server76:settings_input_component",
+        "Subcategory": "Server:dns:1",
+        "IncludeInCommandLine": false,
+        "DefaultValue": "Internet",
+        "EnumValues": {
+            "Local": "Local",
+            "LAN": "LAN",
+            "Internet": "Internet"
+        }
+    },
+    {
+        "DisplayName": "Game Mode",
+        "Description": "Which world mode to run (--mode).",
+        "FieldName": "GameMode",
+        "InputType": "enum",
+        "Category": "Server76:settings_input_component",
+        "Subcategory": "Server:dns:1",
+        "IncludeInCommandLine": false,
+        "DefaultValue": "Adventure",
+        "EnumValues": {
+            "Adventure": "Adventure",
+            "NuclearWinter": "NuclearWinter",
+            "Survival": "Survival"
+        }
+    },
+    {
+        "DisplayName": "Game Data Directory",
+        "Description": "Folder that CONTAINS the game 'Data' dir (with SeventySix.esm, .ba2 files) (--gamedir). Relative to the server binary. Default 'gamedata' -> place files in Server76/bin/gamedata/Data.",
+        "FieldName": "GameDir",
+        "InputType": "text",
+        "Category": "Server76:settings_input_component",
+        "Subcategory": "Server:dns:1",
+        "IncludeInCommandLine": false,
+        "DefaultValue": "gamedata"
+    },
+    {
+        "DisplayName": "Release Date Override",
+        "Description": "Server76 builds publish as linuxrelease_YYYY-MM-DD.7z. Blank = auto-detect newest from the last 8 days. Set an ISO date to pin a build if auto-detect fails.",
+        "FieldName": "ReleaseDateOverride",
+        "InputType": "text",
+        "Category": "Server76:settings_input_component",
+        "Subcategory": "Server76 Build:build:3",
+        "IncludeInCommandLine": false,
+        "DefaultValue": "",
+        "Placeholder": "YYYY-MM-DD (blank = latest)"
+    },
+    {
+        "DisplayName": "Auto-download Fallout 76 game files",
+        "Description": "When enabled, the update process runs SteamCMD to pull the Fallout 76 1.4.1.6 files into the game data directory using the Steam credentials below. Requires a Steam account that OWNS Fallout 76. WILL NOT work if Steam Guard 2FA prompts (updates are non-interactive) - use manual placement instead. You are responsible for Bethesda EULA compliance.",
+        "FieldName": "DownloadGameFiles",
+        "InputType": "checkbox",
+        "Category": "Server76:settings_input_component",
+        "Subcategory": "Fallout 76 Game Files:folder_zip:2",
+        "IncludeInCommandLine": false,
+        "DefaultValue": "false",
+        "EnumValues": {
+            "True": "true",
+            "False": "false"
+        }
+    },
+    {
+        "DisplayName": "Steam Username",
+        "Description": "Steam account owning Fallout 76. Only used when auto-download is enabled. Stored in plaintext in the instance config.",
+        "FieldName": "SteamUsername",
+        "InputType": "text",
+        "Category": "Server76:settings_input_component",
+        "Subcategory": "Fallout 76 Game Files:folder_zip:2",
+        "IncludeInCommandLine": false,
+        "DefaultValue": ""
+    },
+    {
+        "DisplayName": "Steam Password",
+        "Description": "Password for the Steam account above. Only used when auto-download is enabled.",
+        "FieldName": "SteamPassword",
+        "InputType": "password",
+        "Category": "Server76:settings_input_component",
+        "Subcategory": "Fallout 76 Game Files:folder_zip:2",
+        "IncludeInCommandLine": false,
+        "DefaultValue": ""
+    }
+]

@@ -1,0 +1,28 @@
+[
+    {
+        "UpdateStageName": "Server76 Download & Extract",
+        "UpdateSourcePlatform": "Linux",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "/bin/bash",
+        "UpdateSourceArgs": "-c \"set -e; DEST=\\\"./Server76/bin\\\"; mkdir -p \\\"$DEST\\\"; OVR=\\\"{{ReleaseDateOverride}}\\\"; DL=\\\"\\\"; if [ -n \\\"$OVR\\\" ]; then if wget -q --spider \\\"https://myfo.online/releases/linuxrelease_${OVR}.7z\\\"; then DL=\\\"$OVR\\\"; else echo \\\"Pinned build $OVR not found at myfo.online.\\\"; exit 1; fi; else for i in 0 1 2 3 4 5 6 7; do D=$(date -I -d \\\"-$i day\\\"); if wget -q --spider \\\"https://myfo.online/releases/linuxrelease_${D}.7z\\\"; then DL=\\\"$D\\\"; break; fi; done; if [ -z \\\"$DL\\\" ]; then echo \\\"No Server76 release found in the last 8 days. Check the project Discord for a new URL, then set a Release Date Override.\\\"; exit 1; fi; fi; echo \\\"Downloading Server76 build ${DL}...\\\"; wget -q -O /tmp/server76_${DL}.7z \\\"https://myfo.online/releases/linuxrelease_${DL}.7z\\\"; 7zr x -o\\\"$DEST\\\" -aoa /tmp/server76_${DL}.7z >/dev/null; rm -f /tmp/server76_${DL}.7z; chmod +x \\\"$DEST/Server76.Server\\\"; echo \\\"Server76 build ${DL} installed to $DEST.\\\"\"",
+        "SkipOnFailure": false
+    },
+    {
+        "UpdateStageName": "Fallout 76 Game Files (SteamCMD)",
+        "UpdateSourcePlatform": "Linux",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "/bin/bash",
+        "UpdateSourceArgs": "-c \"set -e; U=\\\"{{SteamUsername}}\\\"; P=\\\"{{SteamPassword}}\\\"; if [ -z \\\"$U\\\" ] || [ -z \\\"$P\\\" ]; then echo \\\"Steam username/password not set - skipping game-file download.\\\"; exit 0; fi; DEST=\\\"./Server76/bin/gamedata/Data\\\"; mkdir -p \\\"$DEST\\\"; STEAMCMD=$(command -v steamcmd || echo /usr/games/steamcmd); RS=$(mktemp); printf 'login %s %s\\\\ndownload_depot 1151340 1151343 9006394379407093964\\\\ndownload_depot 1151340 1151342 1065890720657377764\\\\nquit\\\\n' \\\"$U\\\" \\\"$P\\\" > \\\"$RS\\\"; \\\"$STEAMCMD\\\" +runscript \\\"$RS\\\" || true; rm -f \\\"$RS\\\"; C=\\\"$HOME/.local/share/Steam/steamcmd/linux32/steamapps/content/app_1151340\\\"; if [ ! -d \\\"$C\\\" ]; then echo \\\"SteamCMD produced no content (likely a Steam Guard 2FA prompt). Place the game files manually - see the guide.\\\"; exit 0; fi; find \\\"$C\\\" -type d -iname Data -exec sh -c 'cp -rn \\\"$1\\\"/. \\\"$0\\\"/' \\\"$DEST\\\" {} \\\\; 2>/dev/null || true; find \\\"$C\\\" -type f \\\\( -iname \\\"*.esm\\\" -o -iname \\\"*.ba2\\\" \\\\) -exec cp -n {} \\\"$DEST/\\\" \\\\; ; echo \\\"Game files copied to $DEST (verify SeventySix.esm, NW.esm, .ba2 files and Terrain/Appalachia.btd are present).\\\"\"",
+        "UpdateSourceConditionSetting": "DownloadGameFiles",
+        "UpdateSourceConditionValue": "true",
+        "SkipOnFailure": true
+    },
+    {
+        "UpdateStageName": "Case-sensitivity & overrides fixups",
+        "UpdateSourcePlatform": "Linux",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "/bin/bash",
+        "UpdateSourceArgs": "-c \"set -e; SD=\\\"./Server76/bin/ServerData\\\"; if [ -d \\\"$SD/CSV\\\" ] && [ ! -e \\\"$SD/csv\\\" ]; then ln -s \\\"CSV\\\" \\\"$SD/csv\\\"; echo \\\"Added case-sensitive csv symlink.\\\"; fi; mkdir -p \\\"$SD/overrides\\\"; echo \\\"Applied case-sensitivity + overrides fixups (safe to skip if ServerData not built yet).\\\"\"",
+        "SkipOnFailure": true
+    }
+]
