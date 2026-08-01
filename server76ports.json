@@ -1,0 +1,16 @@
+[
+    {
+        "Protocol": "UDP",
+        "Port": 8000,
+        "Ref": "ApplicationPort1",
+        "Name": "Game Port",
+        "Description": "Game UDP port clients connect to (Server76 --port, default 8000)."
+    },
+    {
+        "Protocol": "TCP",
+        "Port": 2102,
+        "Ref": "ApplicationPort2",
+        "Name": "HTTPS Relay Port",
+        "Description": "HTTPS relay port (Server76 --https-port, default 2102)."
+    }
+]
