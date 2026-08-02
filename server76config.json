@@ -1,12 +1,11 @@
 [
     {
         "DisplayName": "Accept Server76 / Fallout 76 EULA",
-        "Description": "Server76 will not start until the EULA is accepted (it passes --accept-eula for you). By enabling this you confirm you accept the Server76 and Fallout 76 terms. Running a private server is against Bethesda's EULA - you take full responsibility.",
+        "Description": "REQUIRED. Server76 will not start until the EULA is accepted (this passes --accept-eula). By enabling this you confirm you accept the Server76 and Fallout 76 terms. Running a private server is against Bethesda's EULA - you take full responsibility.",
         "FieldName": "AcceptEULA",
         "InputType": "checkbox",
         "Category": "Server76:settings_input_component",
         "Subcategory": "Server:dns:1",
-        "ParamFieldName": "accept-eula",
         "IncludeInCommandLine": false,
         "DefaultValue": "",
         "EnumValues": {
@@ -45,8 +44,8 @@
         }
     },
     {
-        "DisplayName": "Game Data Directory",
-        "Description": "Folder that CONTAINS the game 'Data' dir (with SeventySix.esm, .ba2 files) (--gamedir). Relative to the server binary. Default 'gamedata' -> place files in Server76/bin/gamedata/Data.",
+        "DisplayName": "Game Data Folder Name",
+        "Description": "Folder (inside Server76/bin/) that CONTAINS the game 'Data' dir with SeventySix.esm, NW.esm, 'SeventySix - Localization.ba2' and Terrain/Appalachia.btd. Passed to --gamedir as an ABSOLUTE path (Server76's path resolver crashes on relative paths). Default 'gamedata'.",
         "FieldName": "GameDir",
         "InputType": "text",
         "Category": "Server76:settings_input_component",
@@ -67,7 +66,7 @@
     },
     {
         "DisplayName": "Auto-download Fallout 76 game files",
-        "Description": "When enabled, the update process runs SteamCMD to pull the Fallout 76 1.4.1.6 files into the game data directory using the Steam credentials below. Requires a Steam account that OWNS Fallout 76. WILL NOT work if Steam Guard 2FA prompts (updates are non-interactive) - use manual placement instead. You are responsible for Bethesda EULA compliance.",
+        "Description": "When enabled, the update runs SteamCMD to pull the Fallout 76 1.4.1.6 files using the credentials below. Requires a Steam account that OWNS Fallout 76. WILL NOT work if Steam Guard 2FA prompts (updates are non-interactive) - do one interactive 'steamcmd +login <user>' on the host first to cache the session, or place files manually. You are responsible for Bethesda EULA compliance.",
         "FieldName": "DownloadGameFiles",
         "InputType": "checkbox",
         "Category": "Server76:settings_input_component",
